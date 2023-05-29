@@ -1,0 +1,170 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+
+<SfHeatMap DataSource="@JsonData">
+    <HeatMapDataSourceSettings AdaptorType="AdaptorType.Table"
+                               IsJsonData=true
+                               XDataMapping="Region">
+    </HeatMapDataSourceSettings>
+    <HeatMapXAxis Labels="XLabels"></HeatMapXAxis>
+    <HeatMapYAxis Labels="YLabels"></HeatMapYAxis>
+    <HeatMapTitleSettings Text="GDP Growth Rate for Major Economies (in Percentage)">
+    </HeatMapTitleSettings>
+    <HeatMapPaletteSettings>
+        <HeatMapPalettes>
+            <HeatMapPalette Color="#3498DB"></HeatMapPalette>
+            <HeatMapPalette Color="#2C3E50"></HeatMapPalette>
+        </HeatMapPalettes>
+    </HeatMapPaletteSettings>
+</SfHeatMap>
+
+@code
+{
+    double[,] Data;
+    protected override void OnInitialized()
+    {
+        //Data = GetHeatMapData();
+    }
+    class HeatMapData
+    {
+        public string RowId { get; set; }
+        public string ColumnId { get; set; }
+        public string Value { get; set; }
+        public string Region { get; set; }
+        public int? Jan_2000 { get; set; }
+        public int? Jan_2004 { get; set; }
+        public int? Jan_2008 { get; set; }
+        public int? Jan_2012 { get; set; }
+        public int? Jan_2016 { get; set; }
+    }
+
+    HeatMapData[] JsonData = new HeatMapData[]
+    {
+        new HeatMapData {Region = "USA", Jan_2000 = 93,Jan_2004 = 101,Jan_2008 = 112,Jan_2012 = 103,Jan_2016 = 121 },
+        new HeatMapData {Region = "GBR", Jan_2000 = 28,Jan_2004 = 30,Jan_2008 = 49,Jan_2012 = 65,Jan_2016 = 67 },
+        new HeatMapData {Region = "China", Jan_2000 = 58,Jan_2004 = 63,Jan_2008 = 100,Jan_2012 = 91,Jan_2016 = 70 },
+        new HeatMapData {Region = "Russia", Jan_2000 = 89,Jan_2004 = 90,Jan_2008 = 60,Jan_2012 = 69,Jan_2016 = 55 },
+        new HeatMapData {Region = "Germany", Jan_2000 = 56,Jan_2004 = 49,Jan_2008 = 41,Jan_2012 = 44,Jan_2016 = 42 },
+        new HeatMapData {Region = "Japan", Jan_2000 = 18,Jan_2004 = 37,Jan_2008 = 25,Jan_2012 = 38,Jan_2016 = 41 }
+     };
+
+    //HeatMapData[] JsonData = new HeatMapData[]
+    //{
+    //    new HeatMapData  { RowId= "France", ColumnId= "2010", Value= "77.6" },
+    //    new HeatMapData  { RowId= "France", ColumnId= "2011", Value= "79.4" },
+    //    new HeatMapData  { RowId= "France", ColumnId= "2012", Value= "80.8" },
+    //    new HeatMapData  { RowId= "France", ColumnId= "2013", Value= "86.6" },
+    //    new HeatMapData  { RowId= "France", ColumnId= "2014", Value= "83.7" },
+    //    new HeatMapData  { RowId= "France", ColumnId= "2015", Value= "84.5" },
+    //    new HeatMapData  { RowId= "France", ColumnId= "2016", Value= "82.6" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2010", Value= "60.6" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2014", Value= "75.3" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2011", Value= "65.4" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2012", Value= "70.8" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2012", Value= "70.8" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2013", Value= "73.8" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2014", Value= "75.3" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2015", Value= "77.5" },
+    //    new HeatMapData  { RowId= "USA", ColumnId= "2016", Value= "77.6" },
+    //    new HeatMapData  { RowId= "Spain", ColumnId= "2010", Value= "64.9" },
+    //    new HeatMapData  { RowId= "Spain", ColumnId= "2011", Value= "52.6" },
+    //    new HeatMapData  { RowId= "Spain", ColumnId= "2012", Value= "60.8" },
+    //    new HeatMapData  { RowId= "Spain", ColumnId= "2013", Value= "65.6" },
+    //    new HeatMapData  { RowId= "Spain", ColumnId= "2014", Value= "52.6" },
+    //    new HeatMapData  { RowId= "Spain", ColumnId= "2015", Value= "68.5" },
+    //    new HeatMapData  { RowId= "Spain", ColumnId= "2016", Value= "75.6" },
+    //    new HeatMapData  { RowId= "China", ColumnId= "2010", Value= "55.6" },
+    //    new HeatMapData  { RowId= "China", ColumnId= "2011", Value= "52.3" },
+    //    new HeatMapData  { RowId= "China", ColumnId= "2012", Value= "54.8" },
+    //    new HeatMapData  { RowId= "China", ColumnId= "2013", Value= "51.1" },
+    //    new HeatMapData  { RowId= "China", ColumnId= "2014", Value= "55.6" },
+    //    new HeatMapData  { RowId= "China", ColumnId= "2015", Value= "56.9" },
+    //    new HeatMapData  { RowId= "China", ColumnId= "2016", Value= "59.3" },
+    //    new HeatMapData  { RowId= "Italy", ColumnId= "2010", Value= "43.6" },
+    //    new HeatMapData  { RowId= "Italy", ColumnId= "2011", Value= "43.2" },
+    //    new HeatMapData  { RowId= "Italy", ColumnId= "2012", Value= "55.8" },
+    //    new HeatMapData  { RowId= "Italy", ColumnId= "2013", Value= "50.1" },
+    //    new HeatMapData  { RowId= "Italy", ColumnId= "2014", Value= "48.5" },
+    //    new HeatMapData  { RowId= "Italy", ColumnId= "2015", Value= "50.7" },
+    //    new HeatMapData  { RowId= "Italy", ColumnId= "2016", Value= "52.4" },
+    //    new HeatMapData  { RowId= "UK", ColumnId= "2010", Value= "28.2" },
+    //    new HeatMapData  { RowId= "UK", ColumnId= "2011", Value= "31.6" },
+    //    new HeatMapData  { RowId= "UK", ColumnId= "2012", Value= "29.8" },
+    //    new HeatMapData  { RowId= "UK", ColumnId= "2013", Value= "33.1" },
+    //    new HeatMapData  { RowId= "UK", ColumnId= "2014", Value= "32.6" },
+    //    new HeatMapData  { RowId= "UK", ColumnId= "2015", Value= "34.4" },
+    //    new HeatMapData  { RowId= "UK", ColumnId= "2016", Value= "35.8" },
+    //    new HeatMapData  { RowId= "Germany", ColumnId= "2010", Value= "26.8" },
+    //    new HeatMapData  { RowId= "Germany", ColumnId= "2011", Value= "29" },
+    //    new HeatMapData  { RowId= "Germany", ColumnId= "2012", Value= "26.8" },
+    //    new HeatMapData  { RowId= "Germany", ColumnId= "2013", Value= "27.6" },
+    //    new HeatMapData  { RowId= "Germany", ColumnId= "2014", Value= "33" },
+    //    new HeatMapData  { RowId= "Germany", ColumnId= "2015", Value= "35" },
+    //    new HeatMapData  { RowId= "Germany", ColumnId= "2016", Value= "35.6" },
+    //    new HeatMapData  { RowId= "Mexico", ColumnId= "2010", Value= "23.2" },
+    //    new HeatMapData  { RowId= "Mexico", ColumnId= "2011", Value= "24.9" },
+    //    new HeatMapData  { RowId= "Mexico", ColumnId= "2012", Value= "30.1" },
+    //    new HeatMapData  { RowId= "Mexico", ColumnId= "2013", Value= "22.2" },
+    //    new HeatMapData  { RowId= "Mexico", ColumnId= "2014", Value= "29.3" },
+    //    new HeatMapData  { RowId= "Mexico", ColumnId= "2015", Value= "32.1" },
+    //    new HeatMapData  { RowId= "Mexico", ColumnId= "2016", Value= "35" },
+    //    new HeatMapData  { RowId= "Thailand", ColumnId= "2010", Value= "15.9" },
+    //    new HeatMapData  { RowId= "Thailand", ColumnId= "2011", Value= "19.8" },
+    //    new HeatMapData  { RowId= "Thailand", ColumnId= "2012", Value= "21.8" },
+    //    new HeatMapData  { RowId= "Thailand", ColumnId= "2013", Value= "23.5" },
+    //    new HeatMapData  { RowId= "Thailand", ColumnId= "2014", Value= "24.8" },
+    //    new HeatMapData  { RowId= "Thailand", ColumnId= "2015", Value= "29.9" },
+    //    new HeatMapData  { RowId= "Thailand", ColumnId= "2016", Value= "32.6" },
+    //    new HeatMapData  { RowId= "Austria", ColumnId= "2010", Value= "22" },
+    //    new HeatMapData  { RowId= "Austria", ColumnId= "2011", Value= "21.3" },
+    //    new HeatMapData  { RowId= "Austria", ColumnId= "2012", Value= "24.2" },
+    //    new HeatMapData  { RowId= "Austria", ColumnId= "2013", Value= "23.2" },
+    //    new HeatMapData  { RowId= "Austria", ColumnId= "2014", Value= "25" },
+    //    new HeatMapData  { RowId= "Austria", ColumnId= "2015", Value= "26.7" },
+    //    new HeatMapData  { RowId= "Austria", ColumnId= "2016", Value= "28.1" }
+    //};
+    //string[] XLabels = new string[] { "Austria", "China", "France", "Germany", "Italy", "Mexico", "Spain", "Thailand", "UK", "USA" };
+    //string[] YLabels = new string[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016" };
+    string[] XLabels = new string[] { "China", "France", "GBR", "Germany", "Italy", "Japan", "KOR", "Russia", "USA" };
+    string[] YLabels = new string[] { "Jan_2000", "Jan_2004", "Jan_2008", "Jan_2012", "Jan_2016" };
+    public static double[,] GetHeatMapData()
+    {
+        double[,] dataSource = new double[77, 3]
+       {
+                {0, 0, 10.75}, {0, 1, 14.5}, {0, 2, 25.5}, {0, 3, 39.5}, {0, 4, 59.75}, {0, 5, 35.50}, {0, 6, 75.5},
+                {1, 0, 20.75}, {1, 1, 35.5}, {1, 2, 29.5}, {1, 3, 75.5}, {1, 4, 80}, {1, 5, 65}, {1, 6, 85},
+                {2, 0, 6}, {2, 1, 18.5}, {2, 2, 30.05}, {2, 3, 35.5}, {2, 4, 40.75}, {2, 5, 50.75}, {2, 6, 65},
+                {3, 0, 30.5}, {3, 1, 20.5}, {3, 2, 45.30}, {3, 3, 50}, {3, 4, 55}, {3, 5, 85.80}, {3, 6, 87.5},
+                {4, 0, 10.5}, {4, 1, 20.75}, {4, 2, 35.5}, {4, 3, 35.5}, {4, 4, 45.5}, {4, 5, 65}, {4, 6, 75.5},
+                {5, 0, 45.5}, {5, 1, 20.75}, {5, 2, 45.5}, {5, 3, 50.75}, {5, 4, 79.30}, {5, 5, 84.20}, {5, 6, 87.36},
+                {6, 0, 26.82}, {6, 1, 70}, {6, 2, 75}, {6, 3, 79.5}, {6, 4, 88.5}, {6, 5, 89.5}, {6, 6, 91.75},
+                {7, 0, 15.75}, {7, 1, 20.75}, {7, 2, 25.5}, {7, 3, 42.35}, {7, 4, 45.15}, {7, 5, 76.5}, {7, 6, 80.5},
+                {8, 0, 1.98}, {8, 1, 15.23}, {8, 2, 43}, {8, 3, 49}, {8, 4, 63.80}, {8, 5, 67.97}, {8, 6, 70.52},
+                {9, 0, 14.31}, {9, 1, 42.87}, {9, 2, 77.28}, {9, 3, 77.82}, {9, 4, 81.44}, {9, 5, 81.92}, {9, 6, 83.75},
+                {10, 0, 25.5}, {10, 1, 35.5}, {10, 2, 40.5}, {10, 3, 45.05}, {10, 4, 50.5}, {10, 5, 75.5}, {10, 6, 90.58}
+       };
+        return dataSource;
+    }
+}
+
+
+
+
+
+
